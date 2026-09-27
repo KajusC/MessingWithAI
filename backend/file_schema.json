@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://scout.local/schemas/vector-document.json",
+  "title": "VectorDocument",
+  "description": "One stored document. id is assigned by Postgres and is not part of this schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["label", "url", "description", "tags", "document_date", "embedding"],
+  "properties": {
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Short name of the document."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Source URL the document was scraped from."
+    },
+    "description": {
+      "type": "string",
+      "description": "Text that was embedded."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "document_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Publication or scrape date, YYYY-MM-DD."
+    },
+    "embedding": {
+      "type": "array",
+      "description": "Embedding of description. Must match vector(768).",
+      "minItems": 768,
+      "maxItems": 768,
+      "items": {
+        "type": "number"
+      }
+    }
+  }
+}
